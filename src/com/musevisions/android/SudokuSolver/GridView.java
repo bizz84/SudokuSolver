@@ -11,8 +11,7 @@ import android.view.View;
 
 public class GridView extends View {
 
-	static final int GRID_DIM = 9;
-	static final int GRID_SUB_DIM = 3;
+
 	private static final int GRID_MARGIN = 5;
 
 	
@@ -23,12 +22,12 @@ public class GridView extends View {
 		public GridDerivedParams(int width, int height) {
 			int adaptWidth = width - 2 * GRID_MARGIN;
 			int adaptHeight = height - 2 * GRID_MARGIN;
-			float colRatio = (float)adaptWidth / (float)GRID_DIM;
-			float rowRatio = (float)adaptHeight / (float)GRID_DIM;
+			float colRatio = (float)adaptWidth / (float)SudokuCore.GRID_DIM;
+			float rowRatio = (float)adaptHeight / (float)SudokuCore.GRID_DIM;
 			step = Math.min(colRatio, rowRatio);
 			
-			float gridWidth = step * GRID_DIM;
-			float gridHeight = step * GRID_DIM;
+			float gridWidth = step * SudokuCore.GRID_DIM;
+			float gridHeight = step * SudokuCore.GRID_DIM;
 			xStart = (width - gridWidth) / 2;
 			yStart = (height - gridHeight) / 2;
 		}		
@@ -91,23 +90,23 @@ public class GridView extends View {
         paintThick.setColor(Color.BLACK);
         paintThick.setStrokeWidth(3.0f);
 
-        for (int x = 0; x <= GRID_DIM; x++) {
-        	Paint paint = (x % GRID_SUB_DIM) == 0 ? paintThick : paintThin;
+        for (int x = 0; x <= SudokuCore.GRID_DIM; x++) {
+        	Paint paint = (x % SudokuCore.GRID_SUB_DIM) == 0 ? paintThick : paintThin;
         	float pos = xStart + x * step;
-        	canvas.drawLine(pos, yStart, pos, yStart + step * GRID_DIM, paint);   
+        	canvas.drawLine(pos, yStart, pos, yStart + step * SudokuCore.GRID_DIM, paint);   
         }
-        for (int y = 0; y <= GRID_DIM; y++) {
-        	Paint paint = (y % GRID_SUB_DIM) == 0 ? paintThick : paintThin;
+        for (int y = 0; y <= SudokuCore.GRID_DIM; y++) {
+        	Paint paint = (y % SudokuCore.GRID_SUB_DIM) == 0 ? paintThick : paintThin;
            	float pos = yStart + y * step;
-        	canvas.drawLine(xStart, pos, xStart + step * GRID_DIM, pos, paint);       	
+        	canvas.drawLine(xStart, pos, xStart + step * SudokuCore.GRID_DIM, pos, paint);       	
         }        
     }
     
     private void drawCells(Canvas canvas) {
     	if (mInput != null) {
 	    	for (int i = 0; i < mInput.length; i++) {
-	    		int row = i / GRID_DIM;
-	    		int col = i % GRID_DIM;
+	    		int row = i / SudokuCore.GRID_DIM;
+	    		int col = i % SudokuCore.GRID_DIM;
 	    		if (mInput[i] != 0)
 	    			setCellText(canvas, col, row, mInput[i]);
 	    	}
