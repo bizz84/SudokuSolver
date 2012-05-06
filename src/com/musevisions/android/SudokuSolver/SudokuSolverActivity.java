@@ -3,6 +3,7 @@ package com.musevisions.android.SudokuSolver;
 import java.io.InputStream;
 
 import com.musevisions.android.SudokuSolver.SudokuCore.SolverListener;
+import com.musevisions.android.SudokuSolver.SudokuCore.SolverMethod;
 
 
 import android.app.Activity;
@@ -51,12 +52,12 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
 			
 			@Override
 			public void onClick(View v) {
-				(new SudokuSolverTask(mCurrentInput, SudokuSolverActivity.this, mGridView)).execute();
-				//new SudokuCore.SudokuSolver(SudokuSolverActivity.this, mCurrentInput);
+				(new SudokuSolverTask(mCurrentInput, SudokuSolverActivity.this, mGridView, SolverMethod.SOLVER_OPTIMISED)).execute();
 			}
 		});
     }
 
+    /** Callback to be called when solver thread completes */
 	@Override
 	public void onSolverEvent(int[] result) {
 		if (result != null) {
