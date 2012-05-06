@@ -61,15 +61,14 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
 	@Override
 	public void onSolverEvent(int[] result) {
 		if (result != null) {
-			updateView(result);
+			mGridView.setSolution(result);
 		}
 	}
 
-
-	
     public void updateView(int newInput[]) {
     	mCurrentInput = newInput;
     	mGridView.setGameInput(newInput);
+    	mGridView.setSolution(null);
     }
     
     public void ShortToast(String msg) {

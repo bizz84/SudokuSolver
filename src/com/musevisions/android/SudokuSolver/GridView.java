@@ -11,10 +11,8 @@ import android.view.View;
 
 public class GridView extends View {
 
-
 	private static final int GRID_MARGIN = 5;
 
-	
 	private class GridDerivedParams {
 		final float step;
 		final float xStart;
@@ -40,6 +38,8 @@ public class GridView extends View {
 	
 	public GridView(Context context, AttributeSet attributes) {
 		super(context, attributes);
+		mInput = null;
+		mOutput = null;
 	}
 	
 	
@@ -66,7 +66,11 @@ public class GridView extends View {
     	
     	mInput = array;
     	invalidate();
-
+    }
+    
+    public void setSolution(int [] array) {
+    	mOutput = array;
+    	invalidate();
     }
     
     private void drawGrid(Canvas canvas) {
@@ -108,30 +112,25 @@ public class GridView extends View {
 	    		int row = i / SudokuCore.GRID_DIM;
 	    		int col = i % SudokuCore.GRID_DIM;
 	    		if (mInput[i] != 0)
-	    			setCellText(canvas, col, row, mInput[i]);
+	    			setCellText(canvas, col, row, mInput[i], Color.BLACK);
+	    		else if (mOutput != null && mOutput[i] != 0)
+	    			setCellText(canvas, col, row, mOutput[i], Color.RED);
 	    	}
     	}
     }
-	private void setCellText(Canvas canvas, int col, int row, int value) {
+	private void setCellText(Canvas canvas, int col, int row, int value, int color) {
 		
 		String text = String.format("%d", value);
 		Paint paint = new Paint();
 		paint.setAntiAlias(true);
-		//paint.setSubpixelText(true);
 		paint.setTextAlign(Align.CENTER);
 		
 		paint.setTextSize(mParams.step/2);
-		//float width = paint.measureText(text);
-		float startX = getX(col) + mParams.step / 2.0f;// - width / 2.0f;
+		float startX = getX(col) + mParams.step / 2.0f;
 		float startY = getY(row) + mParams.step * 0.7f;
 		
-		//paint.setColor(Color.GRAY);
-		//canvas.drawText(text, startX+1.4f, startY+1.0f, paint);
-		paint.setColor(Color.BLACK);
-		//paint.setTypeface(Typeface.DEFAULT_BOLD);
+		paint.setColor(color);
 		canvas.drawText(text, startX, startY, paint);
-		
-		//Log.v(TAG, "width: " + width + ", size: " + (mParams.step) + "sx: " + startX + ",sy: " + startY);
 	}
 	
     private float getX(int col) {
