@@ -2,6 +2,7 @@ package com.musevisions.android.SudokuSolver;
 
 import java.io.InputStream;
 
+import com.musevisions.android.SudokuSolver.SudokuCore.SolverListener;
 
 
 import android.app.Activity;
@@ -11,7 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class SudokuSolverActivity extends Activity {
+public class SudokuSolverActivity extends Activity implements SolverListener {
 	
 	private GridView mGridView;
 	private int [] mCurrentInput;
@@ -44,8 +45,27 @@ public class SudokuSolverActivity extends Activity {
 					ShortToast("Puzzle is valid");
 			}
 		});
+        
+        Button solve = (Button)findViewById(R.id.btnSolve);
+        solve.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				(new SudokuSolverTask(mCurrentInput, SudokuSolverActivity.this, mGridView)).execute();
+				//new SudokuCore.SudokuSolver(SudokuSolverActivity.this, mCurrentInput);
+			}
+		});
     }
-    
+
+	@Override
+	public void onSolverEvent(int[] result) {
+		if (result != null) {
+			updateView(result);
+		}
+	}
+
+
+	
     public void updateView(int newInput[]) {
     	mCurrentInput = newInput;
     	mGridView.setGameInput(newInput);
@@ -55,4 +75,5 @@ public class SudokuSolverActivity extends Activity {
     	
 		Toast.makeText(SudokuSolverActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
+   
 }
