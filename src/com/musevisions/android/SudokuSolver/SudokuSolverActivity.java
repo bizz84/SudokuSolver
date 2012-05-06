@@ -9,7 +9,6 @@ import android.os.Bundle;
 
 public class SudokuSolverActivity extends Activity {
 	
-	private int [] mTestInput;
 	private GridView mGridView;
 	
     /** Called when the activity is first created. */
@@ -18,11 +17,17 @@ public class SudokuSolverActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.solver);
         
+        ((MainTabActivity)getParent()).setSolverActivity(this);
+
         InputStream is = getResources().openRawResource(R.raw.input_array);
-        mTestInput = JSONHelper.getSudokuArray(is);
+        int defaultInput[] = JSONHelper.getSudokuArray(is);
         
         mGridView = (GridView)findViewById(R.id.gridView);
         
-        mGridView.setGameInput(mTestInput);
+        mGridView.setGameInput(defaultInput);
+    }
+    
+    public void updateView(int newInput[]) {
+    	mGridView.setGameInput(newInput);
     }
 }

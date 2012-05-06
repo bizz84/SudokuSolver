@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -33,11 +34,16 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
 	SudokuRetriever mRetriever;
 	ListView mListView;
 	
+	MainTabActivity mMainActivity;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loader);
 
+        mMainActivity = (MainTabActivity)getParent(); 
+        mMainActivity.setLoaderActivity(this);
+        
         if (isConnected()) {
         	mRetriever = new SudokuRetriever(this);
             (new SudokuRetrieverTask(mRetriever,this)).execute();
@@ -54,8 +60,11 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
 					int position, long id) {
 
 				PuzzleHolder holder = (PuzzleHolder)mListView.getAdapter().getItem(position);
-				Toast.makeText(SudokuLoaderActivity.this, holder.name, Toast.LENGTH_SHORT);
-				//launchApp(holder.label);
+				//Toast.makeText(SudokuLoaderActivity.this, holder.name, Toast.LENGTH_SHORT);
+				
+				mMainActivity.getSolverActivity().updateView(holder.puzzle);
+				TabHost tabHost =  (TabHost)getParent().findViewById(android.R.id.tabhost);
+				tabHost.setCurrentTab(0);
 			}		
         });
     }
@@ -76,8 +85,10 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
 				JSONObject obj = results.getJSONObject(i);
 				JSONArray names = obj.names();
     			String name = names.getString(0);
-    			JSONArray puzzle = obj.getJSONArray(name);
-    			list.add(new PuzzleHolder(name, puzzle));
+    			JSONArray array = obj.getJSONArray(name);
+    			int puzzle[] = JSONHelper.toIntArray(array);
+    			if (puzzle != null)    			
+    				list.add(new PuzzleHolder(name, puzzle));
 				//Log.v(TAG, "File: " + name);
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -97,8 +108,8 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
 	
 	private class PuzzleHolder {
 		String name;
-		JSONArray puzzle;
-		public PuzzleHolder(String name, JSONArray puzzle) {
+		int puzzle[];
+		public PuzzleHolder(String name, int puzzle[]) {
 			this.name = name;
 			this.puzzle = puzzle;
 		}

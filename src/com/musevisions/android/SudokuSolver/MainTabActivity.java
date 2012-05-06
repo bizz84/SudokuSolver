@@ -17,6 +17,10 @@ import android.widget.TextView;
  *
  */
 public class MainTabActivity extends TabActivity {
+	
+	SudokuLoaderActivity mLoaderActivity;
+	SudokuSolverActivity mSolverActivity;
+	
 	/** Called when the activity is first created. */	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -24,6 +28,18 @@ public class MainTabActivity extends TabActivity {
 		setContentView(R.layout.main);
 		setTabs() ;
 	}
+	
+	public void setLoaderActivity(SudokuLoaderActivity activity) {
+		mLoaderActivity = activity;
+	}
+	public void setSolverActivity(SudokuSolverActivity activity) {
+		mSolverActivity = activity;	
+	}
+	
+	public SudokuSolverActivity getSolverActivity() {
+		return mSolverActivity;
+	}
+	
 	private void setTabs()
 	{
 		addTab("Game", R.drawable.tab_home, SudokuSolverActivity.class);
