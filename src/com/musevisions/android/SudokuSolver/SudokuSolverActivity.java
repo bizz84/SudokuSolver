@@ -4,6 +4,7 @@ import java.io.InputStream;
 
 import org.json.JSONArray;
 
+import com.musevisions.android.SudokuSolver.HttpPostUtils.HttpCallbackListener;
 import com.musevisions.android.SudokuSolver.SudokuCore.SolverListener;
 import com.musevisions.android.SudokuSolver.SudokuCore.SolverMethod;
 
@@ -29,6 +30,7 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
 	private CheckBox mChkBruteForce; 
 	private SudokuSolverTask mSolver;
 	private int [] mCurrentInput;
+	private String mPuzzleName;
     private AlertDialog mDialog;
 
 
@@ -100,7 +102,8 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
 		return true;
 	}
 
-    public void updateView(int newInput[]) {
+    public void updateView(int newInput[], String name) {
+    	mPuzzleName = name;
     	mCurrentInput = newInput;
     	mGridView.setGameInput(newInput);
     	mGridView.setSolution(null);
@@ -118,14 +121,19 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
 		}
 		return super.onKeyDown(keyCode, event);
     }
+
+
     private void writeOutput(int[] result) {
-    	JSONArray json = JSONHelper.toJSONArray(result);
-    	Log.v(TAG, json.toString());
+    	if (HttpPostUtils.isConnected(this) && mPuzzleName != null) {
+        	JSONArray json = JSONHelper.toJSONArray(result);
+    		HttpPostUtils.postResult(mPuzzleName, json, this);
+    	}
     }
     
     public void ShortToast(String msg) {
     	
 		Toast.makeText(SudokuSolverActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
+
    
 }

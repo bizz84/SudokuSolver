@@ -42,7 +42,7 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
         mMainActivity.setLoaderActivity(this);
         
         mTextView = (TextView)findViewById(R.id.textInfo);
-        if (isConnected()) {
+        if (HttpPostUtils.isConnected(this)) {
         	mTextView.setVisibility(View.GONE);
         	mRetriever = new SudokuRetriever();
             (new SudokuRetrieverTask(mRetriever,this)).execute();
@@ -62,17 +62,13 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
 				PuzzleHolder holder = (PuzzleHolder)mListView.getAdapter().getItem(position);
 				//Toast.makeText(SudokuLoaderActivity.this, holder.name, Toast.LENGTH_SHORT);
 				
-				mMainActivity.getSolverActivity().updateView(holder.puzzle);
+				mMainActivity.getSolverActivity().updateView(holder.puzzle, holder.name);
 				TabHost tabHost =  (TabHost)getParent().findViewById(android.R.id.tabhost);
 				tabHost.setCurrentTab(0);
 			}		
         });
     }
-    private boolean isConnected() { 
-    	ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-    	final NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-    	return activeNetwork != null && activeNetwork.getState() == NetworkInfo.State.CONNECTED;
-    }
+
     
     
     private void updateView(JSONArray results) {
