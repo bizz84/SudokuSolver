@@ -66,6 +66,18 @@ public class JSONHelper {
 		return null;
 	}
 	
+	public static JSONArray toJSONArray(int array[]) {
+		JSONArray json = new JSONArray();
+		for (int i = 0; i < array.length; i++) {
+			try {
+				json.put(i, array[i]);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return json;
+	}
+	
 	public static int[] getSudokuArray(InputStream is) {
 		
         try {

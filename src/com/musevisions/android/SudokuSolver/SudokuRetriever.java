@@ -1,7 +1,6 @@
 
 package com.musevisions.android.SudokuSolver;
 
-import android.content.Context;
 import android.util.Log;
 
 import java.io.IOException;
@@ -16,16 +15,12 @@ import org.json.JSONException;
  * request.
  */
 public class SudokuRetriever {
-    final String TAG = "SudokuRetriever";
+    static private final String TAG = "SudokuRetriever";
     
-    Context mContext;
+    static private final String SERVER_URL = "http://www.musevisions.com/sudoku/generate.php"; 
     
-    JSONArray mContents;
-
-    public SudokuRetriever(Context context) {
-        mContext = context;
-    }
-
+    private JSONArray mContents;
+    
     /**
      * Loads pictures data. This method may take long, so be sure to call it asynchronously without
      * blocking the main thread.
@@ -50,7 +45,7 @@ public class SudokuRetriever {
     private JSONArray loadFromURL() {
     	
         try {
-        	return JSONHelper.readJsonFromUrl("http://www.musevisions.com/sudoku/generate.php");
+        	return JSONHelper.readJsonFromUrl(SERVER_URL);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (JSONException e) {

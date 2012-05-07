@@ -2,6 +2,8 @@ package com.musevisions.android.SudokuSolver;
 
 import java.io.InputStream;
 
+import org.json.JSONArray;
+
 import com.musevisions.android.SudokuSolver.SudokuCore.SolverListener;
 import com.musevisions.android.SudokuSolver.SudokuCore.SolverMethod;
 
@@ -9,10 +11,10 @@ import com.musevisions.android.SudokuSolver.SudokuCore.SolverMethod;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 public class SudokuSolverActivity extends Activity implements SolverListener {
 	
+	private static final String TAG = "SudokuSolverActivity";
 	private GridView mGridView;
 	private CheckBox mChkBruteForce; 
 	private SudokuSolverTask mSolver;
@@ -116,7 +119,8 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
 		return super.onKeyDown(keyCode, event);
     }
     private void writeOutput(int[] result) {
-    	// TODO: Implement
+    	JSONArray json = JSONHelper.toJSONArray(result);
+    	Log.v(TAG, json.toString());
     }
     
     public void ShortToast(String msg) {

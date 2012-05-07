@@ -1,10 +1,5 @@
 package com.musevisions.android.SudokuSolver;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,11 +10,10 @@ public class SudokuSolverBruteForce {
 
 	/** Method to solve a valid puzzle */
 	static public int[] solve(int puzzle[], SolverListener listener) {
-		
-		if (listener != null) {
-			if (!listener.onSolverEvent(puzzle))
-				return null;
-		}
+
+		/* Handle user break */
+		if (listener != null && !listener.onSolverEvent(puzzle))
+			return null;
 		
 		if (isComplete(puzzle))
 			return puzzle;

@@ -12,7 +12,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,18 +21,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 
 public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTask.SudokuRetrieverPreparedListener {
 
-	private static final String TAG = "SudokuLoaderActivity";
-	SudokuRetriever mRetriever;
-	ListView mListView;
-	TextView mTextView;
+	//private static final String TAG = "SudokuLoaderActivity";
+	private SudokuRetriever mRetriever;
+	private ListView mListView;
+	private TextView mTextView;
 	
-	MainTabActivity mMainActivity;
+	private MainTabActivity mMainActivity;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +44,7 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
         mTextView = (TextView)findViewById(R.id.textInfo);
         if (isConnected()) {
         	mTextView.setVisibility(View.GONE);
-        	mRetriever = new SudokuRetriever(this);
+        	mRetriever = new SudokuRetriever();
             (new SudokuRetrieverTask(mRetriever,this)).execute();
         }
         else {
@@ -120,7 +118,6 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
 	// http://www.vogella.com/articles/AndroidListView/article.html#ownadapter_viewHolder
     private class ListArrayAdapter extends ArrayAdapter<PuzzleHolder> {
     	
-    	
     	Activity activity;
     	List<PuzzleHolder> data;
     	
@@ -132,7 +129,6 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
  
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-        	//Log.v(TAG, "Pos: " + position);
         	View rowView = convertView;
     		if (rowView == null) {	
     			try {

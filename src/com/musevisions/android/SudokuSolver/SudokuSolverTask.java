@@ -3,9 +3,6 @@ package com.musevisions.android.SudokuSolver;
 import com.musevisions.android.SudokuSolver.SudokuCore.SolverListener;
 import com.musevisions.android.SudokuSolver.SudokuCore.SolverMethod;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
 
@@ -47,7 +44,6 @@ public class SudokuSolverTask extends AsyncTask<Void, int[], Void> implements So
 
     }
 
-    @SuppressWarnings({"UnusedDeclaration"})
     protected void onProgressUpdate(int[]... values) {
     	mGridView.setSolution(values[0]);
     }
