@@ -10,29 +10,28 @@ import android.os.AsyncTask;
 
 
 public class SudokuSolverTask extends AsyncTask<Void, int[], Void> implements SolverListener {
-    int mPuzzle[];
-    int mSolution[];
-    SolverListener mListener;
-    Activity mParent;
-    GridView mGridView;
-    SolverMethod mMethod;
-    AlertDialog mDialog;
+    private int mPuzzle[];
+    private int mSolution[];
+    private SolverListener mListener;
+    private GridView mGridView;
+    private SolverMethod mMethod;
+    private boolean inProgress;
+
 
     public SudokuSolverTask(int puzzle[], SolverListener listener,
-    		Activity parent, GridView updateView, SolverMethod method) {
+    		GridView updateView, SolverMethod method) {
         mPuzzle = puzzle;
         mListener = listener;
-        mParent = parent;
         mGridView = updateView;
         mMethod = method;
+        inProgress = false;
     }
 
     @Override
     protected Void doInBackground(Void... arg0) {
-        //mSolution = SudokuCore.solve(mPuzzle, this);
     	switch(mMethod) {
     	case SOLVER_BRUTE_FORCE:
-            mSolution = SudokuCore.solveMethodBruteForce(mPuzzle, mListener);
+            mSolution = SudokuCore.solveMethodBruteForce(mPuzzle, this);
             break;
     	case SOLVER_OPTIMISED:
             mSolution = SudokuCore.solveMethodOptimised(mPuzzle);
@@ -44,25 +43,34 @@ public class SudokuSolverTask extends AsyncTask<Void, int[], Void> implements So
     
     @Override
     protected void onPreExecute() {
-    	mDialog = ProgressDialog.show(mParent, "Solving", "Please wait...");
+    	inProgress = true;
+
     }
 
     @SuppressWarnings({"UnusedDeclaration"})
     protected void onProgressUpdate(int[]... values) {
-    	mGridView.setGameInput(values[0]);
+    	mGridView.setSolution(values[0]);
     }
 
     /** Listener */
     @Override
     protected void onPostExecute(Void result) {
-    	mDialog.dismiss();
+    	inProgress = false;
         mListener.onSolverEvent(mSolution);
     }
 
     /** Updater */
 	@Override
-	public void onSolverEvent(int[] result) {
+	public boolean onSolverEvent(int[] result) {
 		publishProgress(result);
+		if (isCancelled() || !inProgress) {
+			return false;
+		}
+		return true;
+	}
+
+	public boolean inProgress() {
+		return inProgress;
 	}
 
 

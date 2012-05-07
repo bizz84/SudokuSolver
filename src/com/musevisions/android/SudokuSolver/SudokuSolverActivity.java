@@ -7,17 +7,28 @@ import com.musevisions.android.SudokuSolver.SudokuCore.SolverMethod;
 
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 public class SudokuSolverActivity extends Activity implements SolverListener {
 	
 	private GridView mGridView;
+	private CheckBox mChkBruteForce; 
+	private SudokuSolverTask mSolver;
 	private int [] mCurrentInput;
-	
+    private AlertDialog mDialog;
+
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +43,8 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
         mGridView = (GridView)findViewById(R.id.gridView);
         
         mGridView.setGameInput(mCurrentInput);
+        
+        mChkBruteForce = (CheckBox)findViewById(R.id.checkBruteForce);
         
         Button verify = (Button)findViewById(R.id.btnVerify);
         verify.setOnClickListener(new OnClickListener() {
@@ -52,19 +65,36 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
 			
 			@Override
 			public void onClick(View v) {
-				(new SudokuSolverTask(mCurrentInput, SudokuSolverActivity.this, 
-						 SudokuSolverActivity.this, mGridView, SolverMethod.SOLVER_OPTIMISED)).execute();
+				SolverMethod method = mChkBruteForce.isChecked() ? SolverMethod.SOLVER_BRUTE_FORCE : SolverMethod.SOLVER_OPTIMISED; 
+				mGridView.setSolution(null);
+				SudokuSolverActivity.this.mSolver = new SudokuSolverTask(mCurrentInput,
+						SudokuSolverActivity.this, mGridView, method);
+				
+				
+		    	mDialog = ProgressDialog.show(SudokuSolverActivity.this, "Solving", "Please wait...",
+		    				false, true, new OnCancelListener() {								
+								@Override
+								public void onCancel(DialogInterface dialog) {
+									if (mSolver != null)
+										mSolver.cancel(true);
+								}
+							});
+
+				SudokuSolverActivity.this.mSolver.execute();
 			}
 		});
     }
 
     /** Callback to be called when solver thread completes */
 	@Override
-	public void onSolverEvent(int[] result) {
+	public boolean onSolverEvent(int[] result) {
+    	mDialog.dismiss();
+		mSolver = null;
 		if (result != null) {
 			mGridView.setSolution(result);
 			writeOutput(result);
 		}
+		return true;
 	}
 
     public void updateView(int newInput[]) {
@@ -73,6 +103,18 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
     	mGridView.setSolution(null);
     }
     
+
+    @Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+			if (mSolver != null && mSolver.inProgress()) {
+				mSolver.cancel(true);
+				return true;
+			}
+		}
+		return super.onKeyDown(keyCode, event);
+    }
     private void writeOutput(int[] result) {
     	// TODO: Implement
     }

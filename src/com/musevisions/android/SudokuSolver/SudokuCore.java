@@ -129,7 +129,8 @@ public class SudokuCore {
 	
 	/** Solving methods */
     public interface SolverListener {
-    	public void onSolverEvent(int result[]);
+    	/** Return false if execution needs to be terminated */
+    	public boolean onSolverEvent(int result[]);
     }
     static public int[] solveMethodBruteForce(int puzzle[], SolverListener listener) {
     	return SudokuSolverBruteForce.solve(puzzle, listener);

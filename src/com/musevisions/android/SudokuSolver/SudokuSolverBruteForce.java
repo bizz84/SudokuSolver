@@ -16,8 +16,10 @@ public class SudokuSolverBruteForce {
 	/** Method to solve a valid puzzle */
 	static public int[] solve(int puzzle[], SolverListener listener) {
 		
-		if (listener != null)
-			listener.onSolverEvent(puzzle);
+		if (listener != null) {
+			if (!listener.onSolverEvent(puzzle))
+				return null;
+		}
 		
 		if (isComplete(puzzle))
 			return puzzle;
@@ -42,7 +44,7 @@ public class SudokuSolverBruteForce {
 					
 					int tryThis[] = clone(puzzle, value, i);
 					int solution[] = solve(tryThis, listener);
-					if (solution != null)
+					if (solution != null || !listener.onSolverEvent(puzzle))
 						return solution;					
 				}
 			}
