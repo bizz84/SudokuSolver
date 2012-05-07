@@ -52,7 +52,8 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
 			
 			@Override
 			public void onClick(View v) {
-				(new SudokuSolverTask(mCurrentInput, SudokuSolverActivity.this, mGridView, SolverMethod.SOLVER_OPTIMISED)).execute();
+				(new SudokuSolverTask(mCurrentInput, SudokuSolverActivity.this, 
+						 SudokuSolverActivity.this, mGridView, SolverMethod.SOLVER_OPTIMISED)).execute();
 			}
 		});
     }
@@ -62,6 +63,7 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
 	public void onSolverEvent(int[] result) {
 		if (result != null) {
 			mGridView.setSolution(result);
+			writeOutput(result);
 		}
 	}
 
@@ -69,6 +71,10 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
     	mCurrentInput = newInput;
     	mGridView.setGameInput(newInput);
     	mGridView.setSolution(null);
+    }
+    
+    private void writeOutput(int[] result) {
+    	// TODO: Implement
     }
     
     public void ShortToast(String msg) {

@@ -8,11 +8,20 @@
     android:background="#ffffff"
     android:orientation="vertical" >
 
+
    <ListView
         android:id="@+id/listView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
     </ListView>
     
-
+    <TextView
+        android:id="@+id/textInfo"
+        android:textColor="#000000"
+        android:gravity="center_vertical|center"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+   
 </LinearLayout>

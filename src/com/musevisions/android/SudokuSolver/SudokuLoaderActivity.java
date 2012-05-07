@@ -1,7 +1,5 @@
 package com.musevisions.android.SudokuSolver;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +31,7 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
 	private static final String TAG = "SudokuLoaderActivity";
 	SudokuRetriever mRetriever;
 	ListView mListView;
+	TextView mTextView;
 	
 	MainTabActivity mMainActivity;
 	
@@ -44,12 +43,15 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
         mMainActivity = (MainTabActivity)getParent(); 
         mMainActivity.setLoaderActivity(this);
         
+        mTextView = (TextView)findViewById(R.id.textInfo);
         if (isConnected()) {
+        	mTextView.setVisibility(View.GONE);
         	mRetriever = new SudokuRetriever(this);
             (new SudokuRetrieverTask(mRetriever,this)).execute();
         }
         else {
-        	Toast.makeText(this, "Check Internet Connection", Toast.LENGTH_SHORT);
+        	mTextView.setVisibility(View.VISIBLE);
+        	mTextView.setText("Check Internet Connection");
         }
         
         mListView = (ListView)findViewById(R.id.listView);
