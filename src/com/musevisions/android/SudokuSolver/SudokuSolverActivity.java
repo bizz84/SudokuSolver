@@ -111,19 +111,6 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
     	mGridView.setGameInput(newInput);
     	mGridView.setSolution(null);
     }
-    
-
-    @Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-
-		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-			if (mSolver != null && mSolver.inProgress()) {
-				mSolver.cancel(true);
-				return true;
-			}
-		}
-		return super.onKeyDown(keyCode, event);
-    }
 
 
     private void writeOutput(int[] result) {
