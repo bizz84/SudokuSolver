@@ -44,15 +44,6 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
         mMainActivity.setLoaderActivity(this);
         
         mTextView = (TextView)findViewById(R.id.textInfo);
-        if (HttpPostUtils.isConnected(this)) {
-        	mTextView.setVisibility(View.GONE);
-        	mRetriever = new SudokuRetriever();
-            (new SudokuRetrieverTask(mRetriever,this)).execute();
-        }
-        else {
-        	mTextView.setVisibility(View.VISIBLE);
-        	mTextView.setText("Check Internet Connection");
-        }
         
         mListView = (ListView)findViewById(R.id.listView);
         mListView.setOnItemClickListener(new OnItemClickListener() {
@@ -71,7 +62,23 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
         });
     }
 
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	updateResults();
+    }
     
+    private void updateResults() {
+        if (HttpPostUtils.isConnected(this)) {
+        	mTextView.setVisibility(View.GONE);
+        	mRetriever = new SudokuRetriever();
+            (new SudokuRetrieverTask(mRetriever,this)).execute();
+        }
+        else {
+        	mTextView.setVisibility(View.VISIBLE);
+        	mTextView.setText("Check Internet Connection");
+        }
+    }
     
     private void updateView(JSONArray results) {
     	ListView lv = (ListView)findViewById(R.id.listView);
