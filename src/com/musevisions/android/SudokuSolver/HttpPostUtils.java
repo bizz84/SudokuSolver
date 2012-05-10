@@ -71,8 +71,7 @@ public class HttpPostUtils {
 		@Override
 		public void onCallback(String message) {
 			Toast.makeText(mParent, message, Toast.LENGTH_SHORT).show();
-		}
-		
+		}		
 	}
 
 

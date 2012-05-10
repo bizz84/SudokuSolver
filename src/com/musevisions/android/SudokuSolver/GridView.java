@@ -9,6 +9,7 @@ import android.graphics.Paint.Align;
 import android.util.AttributeSet;
 import android.view.View;
 
+/** Class used to display the Sudoku View */
 public class GridView extends View {
 
 	private static final int GRID_MARGIN = 5;
@@ -57,8 +58,10 @@ public class GridView extends View {
         int height = getHeight();
         mParams = new GridDerivedParams(width, height);
      
+        /* Background and grid */
         drawGrid(canvas);
         
+        /* Draw all Sudoku cells, solution ones in red */
         drawCells(canvas);
     }
 	
@@ -68,9 +71,17 @@ public class GridView extends View {
     	invalidate();
     }
     
+    public int [] getInput() {
+    	return mInput;
+    }
+    
     public void setSolution(int [] array) {
     	mOutput = array;
     	invalidate();
+    }
+    
+    public int [] getSolution() {
+    	return mOutput;
     }
     
     private void drawGrid(Canvas canvas) {
@@ -113,7 +124,7 @@ public class GridView extends View {
 	    		int col = i % SudokuCore.GRID_DIM;
 	    		if (mInput[i] != 0)
 	    			setCellText(canvas, col, row, mInput[i], Color.BLACK);
-	    		else if (mOutput != null && mOutput[i] != 0)
+	    		else if (mOutput != null && mOutput[i] != 0) /* Draw output cell if set */
 	    			setCellText(canvas, col, row, mOutput[i], Color.RED);
 	    	}
     	}

@@ -8,9 +8,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -23,7 +20,12 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
-
+/** Class to load available Sudoku games from remote URL.
+ * This class uses a List View to hold a list of Sudoku games retrieved from the main server.
+ *   
+ * @author andrea
+ *
+ */
 public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTask.SudokuRetrieverPreparedListener {
 
 	//private static final String TAG = "SudokuLoaderActivity";
@@ -98,7 +100,6 @@ public class SudokuLoaderActivity extends Activity implements SudokuRetrieverTas
     
 	@Override
 	public void onSudokuRetrieverPrepared() {
-		// TODO Auto-generated method stub
 		updateView(mRetriever.getContents());
 	}
 	

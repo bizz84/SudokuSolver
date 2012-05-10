@@ -23,6 +23,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
+/** Main class handling the UI for the Sudoku Solver */ 
 public class SudokuSolverActivity extends Activity implements SolverListener {
 	
 	private static final String TAG = "SudokuSolverActivity";
@@ -56,8 +57,10 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				String error = SudokuCore.verify(mCurrentInput);
+				/* Verify input, or if puzzle has been solved, output. */
+				int [] output = mGridView.getSolution();
+				int [] toVerify = output != null ? output : mCurrentInput;
+				String error = SudokuCore.verify(toVerify);
 				if (error != null)
 					ShortToast(error);
 				else

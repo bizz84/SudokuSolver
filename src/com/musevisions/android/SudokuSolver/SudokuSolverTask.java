@@ -68,6 +68,4 @@ public class SudokuSolverTask extends AsyncTask<Void, int[], Void> implements So
 	public boolean inProgress() {
 		return inProgress;
 	}
-
-
 }

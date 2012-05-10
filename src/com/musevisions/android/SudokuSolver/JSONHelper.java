@@ -14,6 +14,7 @@ import org.json.JSONException;
 import android.content.res.Resources.NotFoundException;
 import android.widget.Toast;
 
+/** Main helper class used to fetch Sudoku data from an input stream or URL */
 public class JSONHelper {
 
 	private static final int SUDOKU_LEN = 81;
@@ -50,6 +51,7 @@ public class JSONHelper {
 		return readJSONArrayFromIS(is);
 	}
   
+	/** JSON Array - int[] conversion */
 	public static int[] toIntArray(JSONArray array) {
        
 		try {
@@ -66,6 +68,7 @@ public class JSONHelper {
 		return null;
 	}
 	
+	/** int[] - JSON Array conversion */
 	public static JSONArray toJSONArray(int array[]) {
 		JSONArray json = new JSONArray();
 		for (int i = 0; i < array.length; i++) {
@@ -78,6 +81,7 @@ public class JSONHelper {
 		return json;
 	}
 	
+	/** Helper method to read JSON array from input stream and converting to int[] */ 
 	public static int[] getSudokuArray(InputStream is) {
 		
         try {

@@ -17,7 +17,7 @@ public class SudokuCore {
 		SOLVER_OPTIMISED
 	};
 	
-	/** Array representing the indices of each sub-block */ 
+	/** Array representing the indices (zero-based) of each of the 9 sub-blocks */ 
 	static final int SubGridIndices[][] = {
 		{  0,  1,  2, 
 		   9, 10, 11,
@@ -51,13 +51,13 @@ public class SudokuCore {
 		  78, 79, 80 }
 	};
 
-	/** Method to verify if given puzzle is correct i.e. the numbers from 1 to 9 are unique in the following cases:
+	/** Method to check if given puzzle is correct. Verifies that the numbers from 1 to 9 are unique in the following cases:
 	 * - Unique in all rows
-	 * - Unique in all cols
+	 * - Unique in all columns
 	 * - Unique in all 3x3 sub-quadrants
 	 * 
 	 * @param puzzle array of length 81 representing the input configurations. A value of 0 means not assigned
-	 * @return
+	 * @return error string or null if puzzle is valid
 	 */
 	static public String verify(int puzzle[]) {
 		
@@ -132,9 +132,11 @@ public class SudokuCore {
     	/** Return false if execution needs to be terminated */
     	public boolean onSolverEvent(int result[]);
     }
+    /** Wrapper for brute force solver */
     static public int[] solveMethodBruteForce(int puzzle[], SolverListener listener) {
     	return SudokuSolverBruteForce.solve(puzzle, listener);
     }
+    /** Wrapper for external Sudoku Solver */
     static public int[] solveMethodOptimised(int puzzle[]) {
     
     	int board[][] = new int[9][9];

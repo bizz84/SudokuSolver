@@ -9,10 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * Retrieves and organizes media to play. Before being used, you must call {@link #prepare()},
- * which will retrieve all of the pictures on the user's device (by performing a query on a content
- * resolver). After that, it's ready to retrieve a random song, with its title and URI, upon
- * request.
+ * Retrieves and organizes array of contents from remote URL
  */
 public class SudokuRetriever {
     static private final String TAG = "SudokuRetriever";
