@@ -1,22 +1,21 @@
+/**
+ * JSON Sudoku solver is covered under the Creative Commons Attribution 3.0 Unported License
+ * http://creativecommons.org/licenses/by/3.0/
+ * 
+ * @author www.androidcookers.co.cc
+ * {@link www.androidcookers.co.cc}
+ */
 package com.musevisions.android.SudokuSolver;
 
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
-
-/**
- * @author www.androidcookers.co.cc
- * {@link www.androidcookers.co.cc}
- *
- */
 public class MainTabActivity extends TabActivity {
 	
 	SudokuLoaderActivity mLoaderActivity;

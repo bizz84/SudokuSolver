@@ -1,3 +1,10 @@
+/**
+ * JSON Sudoku solver is covered under the Creative Commons Attribution 3.0 Unported License
+ * http://creativecommons.org/licenses/by/3.0/
+ * 
+ * @author: Andrea Bizzotto {@link www.musevisions.com}, {@link www.bizzotto.biz}
+ * @email: bizz84dev@gmail.com
+ */
 package com.musevisions.android.SudokuSolver;
 
 import java.io.IOException;
@@ -19,13 +26,12 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
 
 
 public class HttpPostUtils {
 
-	static private final String TAG = "HttpPostUtils";
+	//static private final String TAG = "HttpPostUtils";
 	/** Class representing the server settings to use for post requests */
 	static public class HttpPostSettings {
 

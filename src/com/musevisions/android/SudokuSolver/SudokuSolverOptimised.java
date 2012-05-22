@@ -1,4 +1,9 @@
-/* Credit: http://www.byteauthor.com/2010/08/sudoku-solver-update/ */
+/**
+ * JSON Sudoku solver is covered under the Creative Commons Attribution 3.0 Unported License
+ * http://creativecommons.org/licenses/by/3.0/
+ * 
+ * @author: Kevin Coulombe {@link http://www.byteauthor.com/2010/08/sudoku-solver-update/}
+ */
 package com.musevisions.android.SudokuSolver;
 
 import java.io.BufferedReader;

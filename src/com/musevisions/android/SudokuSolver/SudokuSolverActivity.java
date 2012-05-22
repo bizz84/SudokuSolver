@@ -1,10 +1,16 @@
+/**
+ * JSON Sudoku solver is covered under the Creative Commons Attribution 3.0 Unported License
+ * http://creativecommons.org/licenses/by/3.0/
+ * 
+ * @author: Andrea Bizzotto {@link www.musevisions.com}, {@link www.bizzotto.biz}
+ * @email: bizz84dev@gmail.com
+ */
 package com.musevisions.android.SudokuSolver;
 
 import java.io.InputStream;
 
 import org.json.JSONArray;
 
-import com.musevisions.android.SudokuSolver.HttpPostUtils.HttpCallbackListener;
 import com.musevisions.android.SudokuSolver.SudokuCore.SolverListener;
 import com.musevisions.android.SudokuSolver.SudokuCore.SolverMethod;
 
@@ -15,8 +21,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,7 +30,7 @@ import android.widget.Toast;
 /** Main class handling the UI for the Sudoku Solver */ 
 public class SudokuSolverActivity extends Activity implements SolverListener {
 	
-	private static final String TAG = "SudokuSolverActivity";
+	//private static final String TAG = "SudokuSolverActivity";
 	private GridView mGridView;
 	private CheckBox mChkBruteForce; 
 	private SudokuSolverTask mSolver;

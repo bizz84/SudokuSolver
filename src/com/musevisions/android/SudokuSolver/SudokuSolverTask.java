@@ -1,3 +1,10 @@
+/**
+ * JSON Sudoku solver is covered under the Creative Commons Attribution 3.0 Unported License
+ * http://creativecommons.org/licenses/by/3.0/
+ * 
+ * @author: Andrea Bizzotto {@link www.musevisions.com}, {@link www.bizzotto.biz}
+ * @email: bizz84dev@gmail.com
+ */
 package com.musevisions.android.SudokuSolver;
 
 import com.musevisions.android.SudokuSolver.SudokuCore.SolverListener;
