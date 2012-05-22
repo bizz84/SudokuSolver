@@ -16,7 +16,7 @@
         <activity
             android:name=".MainTabActivity"
 	        android:screenOrientation="portrait"
-            android:label="@string/app_name" >
+            android:label="@string/app_title" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
