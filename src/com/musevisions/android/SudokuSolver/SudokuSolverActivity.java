@@ -91,6 +91,17 @@ public class SudokuSolverActivity extends Activity implements SolverListener {
 				SudokuSolverActivity.this.mSolver.execute();
 			}
 		});
+        
+        
+        Button about = (Button)findViewById(R.id.btnAbout);
+        about.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+
+				CustomDialogs.createAbout(SudokuSolverActivity.this).show();
+			}
+		});
     }
 
     /** Callback to be called when solver thread completes */

@@ -2,6 +2,13 @@
 <resources>
 
     <string name="hello">Hello World, SudokuSolverActivity!</string>
-    <string name="app_name">SudokuSolver</string>
-
+    <string name="app_name">OpenSudokuSolver</string>
+    
+    <string name="store">Google</string>
+    <string name="about_text">Open Sudoku Solver is a MuseVisions product.\nDownload more apps from developer at</string>
+	<string name="more_from_dev_google"><a href='https://play.google.com/store/apps/developer?id=Muse+Visions'>https://play.google.com/store/apps/developer?id=Muse+Visions</a></string>
+	<string name="more_from_dev_amazon"><a href='http://www.amazon.com/gp/mas/dl/android?p=com.musevisions.android.AppFinder&amp;showAll=1'>http://www.amazon.com/gp/mas/dl/android?p=com.musevisions.android.SudokuSolver&amp;showAll=1</a></string>
+       
+    <string name="about_title">About</string>
+    <string name="about_dismiss">Close</string>
 </resources>
